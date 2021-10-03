@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Intro component with sign up form</title>
+</head>
+
+<body>
+  <main>
+
+    <div id="containerFirst">
+      <h1>Learn to code by watching others</h1>
+      <p>See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but
+        understanding how developers think is invaluable.</p>
+    </div>
+
+
+    <div id="containerSecond">
+      <h2><b>Try it free 7 days</b> then $20/mo. thereafter</h2>
+      <form action="" onsubmit="return validateForm()">
+        <input type="text" placeholder="First Name"><br>
+        <h3 class="errval">First name cannot be empty</h3>
+        <input type="text" placeholder="Last Name"><br>
+        <h3 class="errval">Last name cannot be empty</h3>
+        <input type="text" placeholder="Email Address"><br>
+        <h3 class="errval">Looks like this is not a mail</h3>
+        <input type="text" placeholder="Password"><br>
+        <h3 class="errval">Password cannot be empty</h3>
+        <input type="submit" value="Claim your free trial"><br>
+        <p>By clicking the button, you are agreeing to our <a>Terms and Services</a></p>
+      </form>
+    </div>
+
+  </main>
+
+
+  <footer>
+    <p class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="https://github.com/MatiasEmiliano">MatiasEmiliano</a>.
+    </p>
+  </footer>
+
+  <script>
+    var campos = document.getElementsByTagName("input");
+    var errtext = document.getElementsByClassName("errval");
+
+
+    function validateForm() {
+      let j = 0;
+      for (let i = 0; i < campos.length - 1; i++) {
+
+        if (campos[i].value == '' || campos[i].value == ' ') {
+          j++
+          errtext[i].style.visibility = 'Visible'
+          campos[i].style.border = '2px solid red'
+          campos[i].style.backgroundImage = 'url(../images/icon-error.svg)'
+        } else {
+          errtext[i].style.visibility = 'Hidden'
+          campos[i].style.border = 'Initial'
+          campos[i].style.backgroundImage = 'none'
+        }
+
+        if (i == 2){
+          if (campos[2].value.includes('@') == false) {
+            j++
+            errtext[2].style.visibility = 'Visible'
+            campos[2].style.border = '2px solid red'
+            campos[2].style.backgroundImage = 'url(../images/icon-error.svg)'
+          }
+        }
+
+      }
+
+      if (j == 0) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
+  </script>
+
+
+
+</body>
+
+</html>
