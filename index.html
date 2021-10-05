@@ -15,25 +15,42 @@
 <body>
   <main>
 
-    <div id="containerFirst">
+    <div class="container First">
       <h1>Learn to code by watching others</h1>
       <p>See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but
         understanding how developers think is invaluable.</p>
     </div>
 
 
-    <div id="containerSecond">
+    <div class="container Second" method="get">
       <h2><b>Try it free 7 days</b> then $20/mo. thereafter</h2>
-      <form action="" onsubmit="return validateForm()">
-        <input type="text" placeholder="First Name"><br>
+
+      <form action="procesar.php">
+        <div class="inputContainer">
+          <input type="text" name="name" placeholder="First Name"><img class="iconWrong" src="images/icon-error.svg"
+            alt=""><br>
+        </div>
         <h3 class="errval">First name cannot be empty</h3>
-        <input type="text" placeholder="Last Name"><br>
+
+        <div class="inputContainer">
+          <input type="text" name="surname" placeholder="Last Name"><img class="iconWrong" src="images/icon-error.svg"
+            alt=""><br>
+        </div>
         <h3 class="errval">Last name cannot be empty</h3>
-        <input type="text" placeholder="Email Address"><br>
+
+        <div class="inputContainer">
+          <input type="text" name="email" placeholder="Email Address"><img class="iconWrong" src="images/icon-error.svg"
+            alt=""><br>
+        </div>
         <h3 class="errval">Looks like this is not a mail</h3>
-        <input type="text" placeholder="Password"><br>
+
+        <div class="inputContainer">
+          <input type="text" name="password" placeholder="Password"><img class="iconWrong" src="images/icon-error.svg"
+            alt=""><br>
+        </div>
         <h3 class="errval">Password cannot be empty</h3>
-        <input type="submit" value="Claim your free trial"><br>
+
+        <input class="button" type="submit" value="Claim your free trial"><br>
         <p>By clicking the button, you are agreeing to our <a>Terms and Services</a></p>
       </form>
     </div>
@@ -49,43 +66,115 @@
   </footer>
 
   <script>
-    var campos = document.getElementsByTagName("input");
-    var errtext = document.getElementsByClassName("errval");
 
-
-    function validateForm() {
-      let j = 0;
-      for (let i = 0; i < campos.length - 1; i++) {
-
-        if (campos[i].value == '' || campos[i].value == ' ') {
-          j++
-          errtext[i].style.visibility = 'Visible'
-          campos[i].style.border = '2px solid red'
-          campos[i].style.backgroundImage = 'url(../images/icon-error.svg)'
-        } else {
-          errtext[i].style.visibility = 'Hidden'
-          campos[i].style.border = 'Initial'
-          campos[i].style.backgroundImage = 'none'
-        }
-
-        if (i == 2){
-          if (campos[2].value.includes('@') == false) {
-            j++
-            errtext[2].style.visibility = 'Visible'
-            campos[2].style.border = '2px solid red'
-            campos[2].style.backgroundImage = 'url(../images/icon-error.svg)'
-          }
-        }
-
-      }
-
-      if (j == 0) {
-        return true
-      }
-      else {
-        return false
-      }
+    const expresiones = {
+      name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,      // Letras y espacios, pueden llevar acentos.
+      surname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,   // Letras y espacios, pueden llevar acentos.
+      password: /^.{4,12}$/,              // 4 a 12 digitos.
+      email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     }
+
+    const formInputs = document.getElementsByTagName("input")    
+    const errorLabels = document.getElementsByClassName("errval")
+    const iconWrong = document.getElementsByClassName("iconWrong")
+    const campos = []
+
+    /*-- Validacion al tocar el boton --*/
+    
+    document.getElementsByTagName("form")[0].addEventListener("submit", function (e) {
+      
+      if (campos[0] && campos[1] && campos[2] && campos[3]) {
+      } else {
+
+        if (expresiones.name.test(formInputs[0].value)) {
+          msjOk(0)
+        } else {
+          msjWrong(0)
+        }
+        if (expresiones.surname.test(formInputs[1].value)) {
+          msjOk(1)
+        } else {
+          msjWrong(1)
+        }
+        if (expresiones.email.test(formInputs[2].value)) {
+          msjOk(2)
+        } else {
+          msjWrong(2)
+        }
+        if (expresiones.password.test(formInputs[3].value)) {
+          msjOk(3)
+        } else {
+          msjWrong(3)
+        }
+
+        e.preventDefault()
+      }
+    })
+
+/* msOk: carga estilos cuando es validado ok el campo, idem msWrong*/
+
+    function msjOk(num) {
+      formInputs[num].style.border = "3px solid lime"
+      formInputs[num].style.color = "green"
+      errorLabels[num].style.visibility = "hidden"
+      iconWrong[num].style.visibility = "hidden"
+      campos[num] = true
+    }
+
+    function msjWrong(num) {
+      formInputs[num].style.border = "3px solid red"
+      formInputs[num].style.color = "brown"
+      errorLabels[num].style.visibility = "visible"
+      iconWrong[num].style.visibility = "visible"
+      campos[num] = false
+    }
+
+/*Agrega eventos al escribir y cambiar el foco a una input*/
+
+    for (let i = 0; i < formInputs.length - 1; i++) {
+      formInputs[i].addEventListener("blur", validarForm)
+      formInputs[i], addEventListener("keyup", validarForm)
+    }
+
+/*Identifica el evento y ejecuta el msj Ok o msjWrong segun corresponda */
+
+    function validarForm(e) {
+      switch (e.target.name) {
+        case "name":
+          if (expresiones.name.test(e.target.value)) {
+            msjOk(0)
+          } else {
+            msjWrong(0)
+          }
+          break
+
+        case "surname":
+          if (expresiones.surname.test(e.target.value)) {
+            msjOk(1)
+          } else {
+            msjWrong(1)
+          }
+          break
+
+        case "email":
+          if (expresiones.email.test(e.target.value)) {
+            msjOk(2)
+          } else {
+            msjWrong(2)
+          }
+          break
+
+        case "password":
+          if (expresiones.password.test(e.target.value)) {
+            msjOk(3)
+          } else {
+            msjWrong(3)
+          }
+          break
+      }
+
+    }
+
   </script>
 
 
