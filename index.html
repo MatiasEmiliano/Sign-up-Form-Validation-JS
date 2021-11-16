@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/estilo.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Frontend Mentor | Intro component with sign up form</title>
 </head>
@@ -15,54 +15,52 @@
 <body>
   <main>
 
-    <div class="container First">
-      <h1>Learn to code by watching others</h1>
-      <p>See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but
+    <div class="left__container">
+      <h1 class="left__title">Learn to code by watching others</h1>
+      <p class="left__parr">See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but
         understanding how developers think is invaluable.</p>
     </div>
 
 
-    <div class="container Second">
-      <h2><b>Try it free 7 days</b> then $20/mo. thereafter</h2>
+    <div class="right__container">
+      <h2 class="right__title"><b>Try it free 7 days</b> then $20/mo. thereafter</h2>
 
-      <form action="procesar.php">
-        <div class="inputContainer">
-          <input type="text" name="name" placeholder="First Name"><img class="iconWrong" src="images/icon-error.svg"
+      <form class="form" action="procesar.php">
+        
+        <div class="form__input-ctn">
+          <input class="form__input" type="text" name="name" placeholder="First Name" autocomplete="off"><img class="form__iconWrong" src="images/icon-error.svg" alt=""><br>
+        </div>
+        <h3 class="form__errval">First name cannot be empty or have numbers</h3>
+
+        <div class="form__input-ctn">
+          <input class="form__input" type="text" name="surname" placeholder="Last Name" autocomplete="off"><img class="form__iconWrong" src="images/icon-error.svg"
             alt=""><br>
         </div>
-        <h3 class="errval">First name cannot be empty</h3>
+        <h3 class="form__errval">Last name cannot be empty or have numbers </h3>
 
-        <div class="inputContainer">
-          <input type="text" name="surname" placeholder="Last Name"><img class="iconWrong" src="images/icon-error.svg"
+        <div class="form__input-ctn">
+          <input class="form__input" type="text" name="email" placeholder="Email Address" autocomplete="off"><img class="form__iconWrong" src="images/icon-error.svg"
             alt=""><br>
         </div>
-        <h3 class="errval">Last name cannot be empty</h3>
+        <h3 class="form__errval">Looks like this is not a mail</h3>
 
-        <div class="inputContainer">
-          <input type="text" name="email" placeholder="Email Address"><img class="iconWrong" src="images/icon-error.svg"
+        <div class="form__input-ctn">
+          <input class="form__input" type="text" name="password" placeholder="Password" autocomplete="off"><img class="form__iconWrong" src="images/icon-error.svg"
             alt=""><br>
         </div>
-        <h3 class="errval">Looks like this is not a mail</h3>
+        <h3 class="form__errval">Password cannot be empty</h3>
 
-        <div class="inputContainer">
-          <input type="text" name="password" placeholder="Password"><img class="iconWrong" src="images/icon-error.svg"
-            alt=""><br>
-        </div>
-        <h3 class="errval">Password cannot be empty</h3>
-
-        <input class="button" type="submit" value="Claim your free trial"><br>
-        <p>By clicking the button, you are agreeing to our <a>Terms and Services</a></p>
+        <input class="form__button" type="submit" value="Claim your free trial"><br>
+        <p class="form__agree-label">By clicking the button, you are agreeing to our <a href="" class="form__link-terms">Terms and Services</a></p>
       </form>
     </div>
 
   </main>
 
 
-  <footer>
-    <p class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-      Coded by <a href="https://github.com/MatiasEmiliano">MatiasEmiliano</a>.
-    </p>
+  <footer class="attribution">
+    Challenge by <a class="attribution__link" href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.Coded by <a class="attribution__link"
+      href="https://github.com/MatiasEmiliano">MatiasEmiliano</a>.
   </footer>
 
   <script>
@@ -73,10 +71,9 @@
       password: /^.{4,12}$/,              // 4 a 12 digitos.
       email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     }
-
     const formInputs = document.getElementsByTagName("input")    
-    const errorLabels = document.getElementsByClassName("errval")
-    const iconWrong = document.getElementsByClassName("iconWrong")
+    const errorLabels = document.getElementsByClassName("form__errval")
+    const iconWrong = document.getElementsByClassName("form__iconWrong")
     const campos = []
 
     /*-- Validacion al tocar el boton --*/
